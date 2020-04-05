@@ -1,0 +1,10 @@
+name: 'deploy-action'
+description: 'Deploy to Netlify'
+author: 'muachilin'
+inputs:
+  commit-comment:
+    description: 'The message print on comment when adding commits'
+    default: 'Successfully comment! ✨'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
