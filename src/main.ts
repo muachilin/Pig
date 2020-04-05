@@ -1,16 +1,43 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import {context, GitHub} from '@actions/github'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    
+    const commitMessage = core.getInput('commit-comment')
+  
+    // Get GitHub token
+    const githubToken = core.getInput('github-token')
+    if (githubToken !== '') {
+      // Create GitHub client
+      const githubClient = new GitHub(githubToken)
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+      const commitCommentParams = {
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        commit_sha: context.sha,
+        body: commitMessage
+      }
+  
+      try {
+        await githubClient.repos.createCommitComment(commitCommentParams)
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err, JSON.stringify(commitCommentParams, null, 2))
+      }
+      // If it is a pull request
+      if (context.issue.number !== undefined) {
+        // Comment the deploy URL
+        await githubClient.issues.createComment({
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          issue_number: context.issue.number,
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          body: commitMessage
+        })
+      }
+    }
   } catch (error) {
     core.setFailed(error.message)
   }
