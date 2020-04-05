@@ -10,7 +10,7 @@ The JavaScript action for setting up customized commit comments!
 
 Stay at home and play with Github :octocat:
 
-## Code in Master
+## Code and Test
 
 Install the dependencies  
 ```bash
