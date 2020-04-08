@@ -39,7 +39,7 @@ async function run(): Promise<void> {
           owner: context.repo.owner,
           repo: context.repo.repo,
           name: 'in progress :racehorse:',
-          color: 'green'
+          color: '#3AC6C6'
         });
         await githubClient.issues.addLabels({
           owner: context.repo.owner,
