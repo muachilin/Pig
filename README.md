@@ -20,10 +20,9 @@ Stay at home and play with Github :octocat:
 
 ## Add label when committing
 
-When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically add a label of `in progress` to the linked issue of this pull reques
-t!
+When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically add a label of `in progress` to the linked issue of this pull request!
 
-Remember to include the linked issue number in the title of the pull request like this:
+Remember to include the number of linked issue in the title of the pull request like this:
 
 ```bash
 My pull request title (#123)
