@@ -26,6 +26,22 @@ async function run(): Promise<void> {
         // eslint-disable-next-line no-console
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
+
+      const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
+        owner: context.repo.owner,
+        repo: context.repo.repo
+      });
+
+      const Label = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
+      if (Label === undefined) {
+        await githubClient.issues.createLabel({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          name: "in progress :octopus:",
+          description: "This issue is start being handling!",
+          color: "a9ffd4"
+        });
+      }
       // If it is a pull request
       if (context.issue.number !== undefined) {
         await githubClient.issues.createComment({
@@ -35,18 +51,23 @@ async function run(): Promise<void> {
           repo: context.repo.repo,
           body: commitMessage
         })
-        await githubClient.issues.createLabel({
+        const res = await githubClient.issues.get({
           owner: context.repo.owner,
           repo: context.repo.repo,
-          name: 'in progress :racehorse:',
-          color: 'green'
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          issue_number: context.issue.number
         });
+        const leftParaIndex = res.data.title.indexOf('(');
+        const rightParaIndex = res.data.title.indexOf(')');
+        const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
+        process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`)
+        const linkIssueNumber = +linkIssueStr;
         await githubClient.issues.addLabels({
           owner: context.repo.owner,
           repo: context.repo.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
-          issue_number: context.issue.number,
-          labels: ['in progress :racehorse:']
+          issue_number: linkIssueNumber,
+          labels: ["in progress :octopus:"]
         })
       }
     }

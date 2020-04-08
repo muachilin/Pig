@@ -3533,6 +3533,20 @@ function run() {
                     // eslint-disable-next-line no-console
                     console.error(err, JSON.stringify(commitCommentParams, null, 2));
                 }
+                const labelsInRepoResponse = yield githubClient.issues.listLabelsForRepo({
+                    owner: github_1.context.repo.owner,
+                    repo: github_1.context.repo.repo
+                });
+                const Label = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
+                if (Label === undefined) {
+                    yield githubClient.issues.createLabel({
+                        owner: github_1.context.repo.owner,
+                        repo: github_1.context.repo.repo,
+                        name: "in progress :octopus:",
+                        description: "This issue is start being handling!",
+                        color: "a9ffd4"
+                    });
+                }
                 // If it is a pull request
                 if (github_1.context.issue.number !== undefined) {
                     yield githubClient.issues.createComment({
@@ -3542,17 +3556,23 @@ function run() {
                         repo: github_1.context.repo.repo,
                         body: commitMessage
                     });
-                    yield githubClient.issues.createLabel({
+                    const res = yield githubClient.issues.get({
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
-                        name: 'in progress :racehorse:',
-                        color: 'green'
+                        // eslint-disable-next-line @typescript-eslint/camelcase
+                        issue_number: github_1.context.issue.number
                     });
+                    const leftParaIndex = res.data.title.indexOf('(');
+                    const rightParaIndex = res.data.title.indexOf(')');
+                    const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
+                    process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`);
+                    const linkIssueNumber = +linkIssueStr;
                     yield githubClient.issues.addLabels({
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
-                        issue_number: github_1.context.issue.number,
-                        labels: ['in progress :racehorse:']
+                        // eslint-disable-next-line @typescript-eslint/camelcase
+                        issue_number: linkIssueNumber,
+                        labels: ["in progress :octopus:"]
                     });
                 }
             }
