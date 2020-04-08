@@ -30,13 +30,13 @@ async function run(): Promise<void> {
       const Label = await githubClient.issues.getLabel({
         owner: context.repo.owner,
         repo: context.repo.repo,
-        name: "in progress :racehorse:"
+        name: "in progress :octopus:"
       });
       if (Label === undefined) {
         await githubClient.issues.createLabel({
           owner: context.repo.owner,
           repo: context.repo.repo,
-          name: "in progress :racehorse:",
+          name: "in progress :octopus:",
           description: "This issue is start being handling!",
           color: "f29513"
         });
@@ -50,13 +50,22 @@ async function run(): Promise<void> {
           repo: context.repo.repo,
           body: commitMessage
         })
-        
+
+        const res = await githubClient.issues.get({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: context.issue.number
+        });
+        const leftParaIndex = res.data.title.indexOf('(');
+        const rightParaIndex = res.data.title.indexOf(')');
+        const linkIssueStr = res.data.title.substring(leftParaIndex + 1, rightParaIndex);
+        const linkIssueNumber = +linkIssueStr;
         await githubClient.issues.addLabels({
           owner: context.repo.owner,
           repo: context.repo.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
-          issue_number: 1,
-          labels: ["in progress :racehorse:"]
+          issue_number: linkIssueNumber,
+          labels: ["in progress :octopus:"]
         })
       }
     }
