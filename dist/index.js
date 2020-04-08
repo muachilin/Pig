@@ -3533,8 +3533,12 @@ function run() {
                     // eslint-disable-next-line no-console
                     console.error(err, JSON.stringify(commitCommentParams, null, 2));
                 }
-                // If it is a pull request
-                if (github_1.context.issue.number !== undefined) {
+                const Label = yield githubClient.issues.getLabel({
+                    owner: github_1.context.repo.owner,
+                    repo: github_1.context.repo.repo,
+                    name: "in progress :racehorse:"
+                });
+                if (Label == undefined) {
                     yield githubClient.issues.createLabel({
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
@@ -3542,6 +3546,9 @@ function run() {
                         description: "This issue is start being handling!",
                         color: "f29513"
                     });
+                }
+                // If it is a pull request
+                if (github_1.context.issue.number !== undefined) {
                     yield githubClient.issues.createComment({
                         // eslint-disable-next-line @typescript-eslint/camelcase
                         issue_number: github_1.context.issue.number,
