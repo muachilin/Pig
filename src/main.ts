@@ -26,12 +26,13 @@ async function run(): Promise<void> {
         // eslint-disable-next-line no-console
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
-    
+      process.stdout.write(`before get label\n`)
       const Label = await githubClient.issues.getLabel({
         owner: context.repo.owner,
         repo: context.repo.repo,
         name: "in progress :octopus:"
       });
+      process.stdout.write(`after get label\n`)
       if (Label === undefined) {
         await githubClient.issues.createLabel({
           owner: context.repo.owner,
