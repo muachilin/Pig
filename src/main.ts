@@ -27,7 +27,7 @@ async function run(): Promise<void> {
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
     
-      const Label = githubClient.issues.getLabel({
+      const Label = await githubClient.issues.getLabel({
         owner: context.repo.owner,
         repo: context.repo.repo,
         name: "in progress :racehorse:"
