@@ -3534,12 +3534,11 @@ function run() {
                     console.error(err, JSON.stringify(commitCommentParams, null, 2));
                 }
                 process.stdout.write(`before get label\n`);
-                const Label = yield githubClient.issues.getLabel({
+                const labelsInRepoResponse = yield githubClient.issues.listLabelsForRepo({
                     owner: github_1.context.repo.owner,
-                    repo: github_1.context.repo.repo,
-                    name: "in progress :octopus:"
+                    repo: github_1.context.repo.repo
                 });
-                process.stdout.write(`after get label\n`);
+                const Label = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
                 if (Label === undefined) {
                     yield githubClient.issues.createLabel({
                         owner: github_1.context.repo.owner,
