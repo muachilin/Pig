@@ -28,13 +28,24 @@ async function run(): Promise<void> {
       }
       // If it is a pull request
       if (context.issue.number !== undefined) {
-        // Comment the deploy URL
         await githubClient.issues.createComment({
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: context.issue.number,
           owner: context.repo.owner,
           repo: context.repo.repo,
           body: commitMessage
+        })
+        await githubClient.issues.createLabel({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          name: 'in progress :racehorse:',
+          color: 'green'
+        });
+        await githubClient.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: context.issue.number,
+          labels: ['in progress :racehorse:']
         })
       }
     }
