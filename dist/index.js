@@ -3539,7 +3539,7 @@ function run() {
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
                         name: "in progress :racehorse:",
-                        //description: "This issue is start being handling!",
+                        description: "This issue is start being handling!",
                         color: "f29513"
                     });
                     yield githubClient.issues.createComment({
@@ -3549,13 +3549,13 @@ function run() {
                         repo: github_1.context.repo.repo,
                         body: commitMessage
                     });
-                    /*await githubClient.issues.addLabels({
-                      owner: context.repo.owner,
-                      repo: context.repo.repo,
-                      // eslint-disable-next-line @typescript-eslint/camelcase
-                      issue_number: context.issue.number,
-                      labels: ["in progress :racehorse:"]
-                    })*/
+                    yield githubClient.issues.addLabels({
+                        owner: github_1.context.repo.owner,
+                        repo: github_1.context.repo.repo,
+                        // eslint-disable-next-line @typescript-eslint/camelcase
+                        issue_number: github_1.context.issue.number,
+                        labels: ["in progress :racehorse:"]
+                    });
                 }
             }
         }
