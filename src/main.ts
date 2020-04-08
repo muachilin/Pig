@@ -26,9 +26,13 @@ async function run(): Promise<void> {
         // eslint-disable-next-line no-console
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
-      
-      // If it is a pull request
-      if (context.issue.number !== undefined) {
+    
+      const Label = githubClient.issues.getLabel({
+        owner: context.repo.owner,
+        repo: context.repo.repo,
+        name: "in progress :racehorse:"
+      });
+      if (Label == undefined) {
         await githubClient.issues.createLabel({
           owner: context.repo.owner,
           repo: context.repo.repo,
@@ -36,7 +40,9 @@ async function run(): Promise<void> {
           description: "This issue is start being handling!",
           color: "f29513"
         });
-        
+      }
+      // If it is a pull request
+      if (context.issue.number !== undefined) {
         await githubClient.issues.createComment({
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: context.issue.number,
