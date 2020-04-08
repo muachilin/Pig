@@ -58,7 +58,7 @@ async function run(): Promise<void> {
         });
         const leftParaIndex = res.data.title.indexOf('(');
         const rightParaIndex = res.data.title.indexOf(')');
-        const linkIssueStr = res.data.title.substring(leftParaIndex + 1, rightParaIndex);
+        const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
         process.stdout.write(`The parse issue number is:${linkIssueStr}\n`)
         const linkIssueNumber = +linkIssueStr;
         await githubClient.issues.addLabels({
