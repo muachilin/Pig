@@ -55,7 +55,7 @@ async function run(): Promise<void> {
           owner: context.repo.owner,
           repo: context.repo.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
-          issue_number: context.issue.number,
+          issue_number: 1,
           labels: ["in progress :racehorse:"]
         })
       }
