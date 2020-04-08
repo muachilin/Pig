@@ -32,7 +32,7 @@ async function run(): Promise<void> {
         repo: context.repo.repo,
         name: "in progress :racehorse:"
       });
-      if (Label == undefined) {
+      if (Label === undefined) {
         await githubClient.issues.createLabel({
           owner: context.repo.owner,
           repo: context.repo.repo,

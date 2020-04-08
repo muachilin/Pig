@@ -3538,7 +3538,7 @@ function run() {
                     repo: github_1.context.repo.repo,
                     name: "in progress :racehorse:"
                 });
-                if (Label == undefined) {
+                if (Label === undefined) {
                     yield githubClient.issues.createLabel({
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
