@@ -3533,7 +3533,6 @@ function run() {
                     // eslint-disable-next-line no-console
                     console.error(err, JSON.stringify(commitCommentParams, null, 2));
                 }
-                process.stdout.write(`before get label\n`);
                 const labelsInRepoResponse = yield githubClient.issues.listLabelsForRepo({
                     owner: github_1.context.repo.owner,
                     repo: github_1.context.repo.repo
@@ -3545,7 +3544,7 @@ function run() {
                         repo: github_1.context.repo.repo,
                         name: "in progress :octopus:",
                         description: "This issue is start being handling!",
-                        color: "f29513"
+                        color: "a9ffd4"
                     });
                 }
                 // If it is a pull request
@@ -3560,12 +3559,13 @@ function run() {
                     const res = yield githubClient.issues.get({
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
+                        // eslint-disable-next-line @typescript-eslint/camelcase
                         issue_number: github_1.context.issue.number
                     });
                     const leftParaIndex = res.data.title.indexOf('(');
                     const rightParaIndex = res.data.title.indexOf(')');
                     const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
-                    process.stdout.write(`The parse issue number is:${linkIssueStr}\n`);
+                    process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`);
                     const linkIssueNumber = +linkIssueStr;
                     yield githubClient.issues.addLabels({
                         owner: github_1.context.repo.owner,

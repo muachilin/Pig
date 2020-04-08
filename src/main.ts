@@ -26,12 +26,12 @@ async function run(): Promise<void> {
         // eslint-disable-next-line no-console
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
-      process.stdout.write(`before get label\n`)
 
       const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
         owner: context.repo.owner,
         repo: context.repo.repo
       });
+
       const Label = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
       if (Label === undefined) {
         await githubClient.issues.createLabel({
@@ -39,7 +39,7 @@ async function run(): Promise<void> {
           repo: context.repo.repo,
           name: "in progress :octopus:",
           description: "This issue is start being handling!",
-          color: "f29513"
+          color: "a9ffd4"
         });
       }
       // If it is a pull request
@@ -51,16 +51,16 @@ async function run(): Promise<void> {
           repo: context.repo.repo,
           body: commitMessage
         })
-
         const res = await githubClient.issues.get({
           owner: context.repo.owner,
           repo: context.repo.repo,
+          // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: context.issue.number
         });
         const leftParaIndex = res.data.title.indexOf('(');
         const rightParaIndex = res.data.title.indexOf(')');
         const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
-        process.stdout.write(`The parse issue number is:${linkIssueStr}\n`)
+        process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`)
         const linkIssueNumber = +linkIssueStr;
         await githubClient.issues.addLabels({
           owner: context.repo.owner,
