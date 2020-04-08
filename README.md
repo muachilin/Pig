@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="">
-    <img alt="" src="https://images.emojiterra.com/google/android-nougat/512px/1f419.png" width="150" />
+    <img alt="" src="https://images.emojiterra.com/google/android-nougat/512px/1f419.png" width="250" />
   </a>
 </p>
 
