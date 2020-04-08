@@ -3564,6 +3564,7 @@ function run() {
                     const leftParaIndex = res.data.title.indexOf('(');
                     const rightParaIndex = res.data.title.indexOf(')');
                     const linkIssueStr = res.data.title.substring(leftParaIndex + 1, rightParaIndex);
+                    process.stdout.write(`The parse issue number is:${linkIssueStr}\n`);
                     const linkIssueNumber = +linkIssueStr;
                     yield githubClient.issues.addLabels({
                         owner: github_1.context.repo.owner,
