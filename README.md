@@ -12,7 +12,7 @@
   <a href=""><img alt="FuzzyOcto status" src="https://github.com/muachilin/FuzzyOcto/workflows/FuzzyOcto-Test/badge.svg"></a>
 </p>
 
-## Add customized labels!
+## Add customized labels for your issue!
 
 The JavaScript action for setting up customized commit comments!
 
