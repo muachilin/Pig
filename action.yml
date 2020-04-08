@@ -1,5 +1,5 @@
-name: 'fuzzyoct-action'
-description: 'comments on commits'
+name: 'fuzzyocto-action'
+description: 'label management for issues'
 author: 'muachilin'
 inputs:
   github-token:
