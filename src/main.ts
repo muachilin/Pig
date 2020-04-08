@@ -27,12 +27,12 @@ async function run(): Promise<void> {
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
       process.stdout.write(`before get label\n`)
-      const Label = await githubClient.issues.getLabel({
+
+      const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
         owner: context.repo.owner,
-        repo: context.repo.repo,
-        name: "in progress :octopus:"
+        repo: context.repo.repo
       });
-      process.stdout.write(`after get label\n`)
+      const Label = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
       if (Label === undefined) {
         await githubClient.issues.createLabel({
           owner: context.repo.owner,
