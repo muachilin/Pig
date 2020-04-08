@@ -3567,6 +3567,13 @@ function run() {
                     const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
                     process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`);
                     const linkIssueNumber = +linkIssueStr;
+                    yield githubClient.issues.createComment({
+                        owner: github_1.context.repo.owner,
+                        repo: github_1.context.repo.repo,
+                        // eslint-disable-next-line @typescript-eslint/camelcase
+                        issue_number: linkIssueNumber,
+                        body: `This issue is linked to the pull request #${github_1.context.issue.number}\n`,
+                    });
                     yield githubClient.issues.addLabels({
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
