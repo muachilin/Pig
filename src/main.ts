@@ -26,14 +26,16 @@ async function run(): Promise<void> {
         // eslint-disable-next-line no-console
         console.error(err, JSON.stringify(commitCommentParams, null, 2))
       }
-      await githubClient.issues.createLabel({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        name: 'in progress :racehorse:',
-        color: 'b01f26'
-      });
+      
       // If it is a pull request
       if (context.issue.number !== undefined) {
+        await githubClient.issues.createLabel({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          name: "in progress :racehorse:",
+          color: "f29513"
+        });
+        
         await githubClient.issues.createComment({
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: context.issue.number,
@@ -47,7 +49,7 @@ async function run(): Promise<void> {
           repo: context.repo.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: context.issue.number,
-          labels: ['in progress :racehorse:']
+          labels: ["in progress :racehorse:"]
         })
       }
     }
