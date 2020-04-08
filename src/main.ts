@@ -44,13 +44,13 @@ async function run(): Promise<void> {
           body: commitMessage
         })
         
-        await githubClient.issues.addLabels({
+        /*await githubClient.issues.addLabels({
           owner: context.repo.owner,
           repo: context.repo.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: context.issue.number,
           labels: ["in progress :racehorse:"]
-        })
+        })*/
       }
     }
   } catch (error) {
