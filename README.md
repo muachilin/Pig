@@ -12,6 +12,8 @@
   <a href=""><img alt="FuzzyOcto status" src="https://github.com/muachilin/FuzzyOcto/workflows/FuzzyOcto-Test/badge.svg"></a>
 </p>
 
+## Add customized labels
+
 The JavaScript action for setting up customized commit comments!
 
 Stay at home and play with Github :octocat:
