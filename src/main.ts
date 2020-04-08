@@ -62,6 +62,15 @@ async function run(): Promise<void> {
         const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
         process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`)
         const linkIssueNumber = +linkIssueStr;
+
+        await githubClient.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          // eslint-disable-next-line @typescript-eslint/camelcase
+          issue_number: linkIssueNumber,
+          body: `This issue is linked to the pull request #${context.issue.number}\n`,
+        });
+
         await githubClient.issues.addLabels({
           owner: context.repo.owner,
           repo: context.repo.repo,
