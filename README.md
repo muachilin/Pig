@@ -28,3 +28,10 @@ Remember to include the number of linked issue in the title of the pull request 
 My pull request title (#123)
 ```
 
+## Comment on linked issue when committing to pull request
+
+When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request!
+
+```bash
+This issue is linked to the pull request #125
+```
