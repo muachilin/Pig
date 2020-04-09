@@ -38,7 +38,7 @@ async function run(): Promise<void> {
           owner: context.repo.owner,
           repo: context.repo.repo,
           name: "in progress :octopus:",
-          description: "This issue is start being handling!",
+          description: "This issue is currently being handling",
           color: "a9ffd4"
         });
       }
