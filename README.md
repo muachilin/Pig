@@ -32,4 +32,6 @@ My pull request title (#123)
 
 When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request. Besides, FuzzyOcto will tag the person who open the pull request related to this issue. Therefore, user can see who and which PR is handling this issue very easily!
 
-<img alt="" src="examples/issue_comment.png" width="400" />
+<p align="center">
+ <img alt="" src="examples/issue_comment.png" width="700" />
+</p>
