@@ -18,7 +18,7 @@ A tiny Github Action built with TypeScript for managing labels and comments in i
 Stay at home and play with Github :octocat:
 
 
-## Add label when committing
+## Labeling
 
 When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically add a label of `in progress` to the linked issue of this pull request!
 
@@ -28,7 +28,7 @@ Remember to include the number of linked issue in the title of the pull request 
 My pull request title (#123)
 ```
 
-## Comment on linked issue when committing to pull request
+## Mentioning
 
 When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request!
 
