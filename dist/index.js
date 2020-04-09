@@ -3573,14 +3573,14 @@ function run() {
                         // eslint-disable-next-line @typescript-eslint/camelcase
                         issue_number: linkIssueNumber
                     });
-                    const comment = listOfCommentsResponse.data.find(l => l.body === `This issue is linked to the pull request #${github_1.context.issue.number}\n`);
+                    const comment = listOfCommentsResponse.data.find(l => l.body === `This issue is linked to the pull request #${github_1.context.issue.number}\n 🔧 Handling by @${res.data.user.login}\n`);
                     if (comment === undefined) {
                         yield githubClient.issues.createComment({
                             owner: github_1.context.repo.owner,
                             repo: github_1.context.repo.repo,
                             // eslint-disable-next-line @typescript-eslint/camelcase
                             issue_number: linkIssueNumber,
-                            body: `This issue is linked to the pull request #${github_1.context.issue.number}\n`,
+                            body: `📌 This issue is linked to the pull request #${github_1.context.issue.number}\n 🔧 Handling by @${res.data.user.login}\n`,
                         });
                     }
                     yield githubClient.issues.addLabels({
