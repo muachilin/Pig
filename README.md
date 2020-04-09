@@ -13,7 +13,7 @@
 </p>
 
 
-A tiny Github Action built with JavaScript for managing labels in issues!
+A tiny Github Action built with TypeScript for managing labels and comments in issues!
 
 Stay at home and play with Github :octocat:
 
