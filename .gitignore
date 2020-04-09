@@ -1,3 +1,7 @@
+# Ignore built ts files
+__tests__/runner/*
+lib/**/*
+
 ### macOS ###
 # General
 .DS_Store
