@@ -22,7 +22,7 @@ Stay home and play with Github :octocat:
 
 ## 🏷️ Labeling
 
-When you commit to a branch and open a corresonding pull request, FuzzyOcto will automatically add a label of `in progress` to the linked issue of this pull request!
+When you commit to a branch and open a corresonding pull request, FuzzyOcto will automatically add a label of `in progress` to the linked issue of this pull request.
 <br></br>
 <p align="center">
  <img alt="" src="examples/add_label.png" width="500" />
@@ -37,7 +37,7 @@ My pull request title (#123)
 
 ## 📝 Mentioning
 
-When you commit to a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request. Besides, FuzzyOcto will tag the person who open the pull request on the linked issue. Therefore, user can see who and which PR is handling this issue very easily!
+When you commit to a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request. Besides, FuzzyOcto will tag the person who open the pull request on the linked issue. Therefore, user can see who and which PR is handling this issue very easily.
 
 <p align="center">
  <img alt="" src="examples/issue_comment.png" width="700" />
