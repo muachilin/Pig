@@ -1,5 +1,5 @@
 name: "FuzzyOcto-Test"
-on: # rebuild any PRs and main branch changes
+on:
   pull_request:
   push:
     branches:
@@ -7,11 +7,20 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
-  test: # make sure the action works on a clean machine without building
+  # unit tests
+  units:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: npm ci
+    - run: npm test
+
+  # test action works running from the graph  
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: ./
-      with: 
+      with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         commit-comment: "Test for commit comment!"
