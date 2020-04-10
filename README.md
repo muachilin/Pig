@@ -41,7 +41,7 @@ After you merge the pull request, FuzzyOcto will automatically remove the origin
 
 <br></br>
 <p align="center">
- <img alt="" src="examples/remove_label.png" width="500" />
+ <img alt="" src="examples/remove_label.png" width="400" />
 </p>
 <br></br>
 
