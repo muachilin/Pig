@@ -1,75 +1,17 @@
 const core = require('@actions/core');
 const { context, GitHub } = require("@actions/github");
 
-function isNumber(n) { 
-  return !isNaN(parseFloat(n)) && !isNaN(n - 0) 
+function isNumber(n) {
+  return !isNaN(parseFloat(n)) && !isNaN(n - 0)
 }
 
 async function run() {
   try {
-    
+
     const githubToken = core.getInput('github-token')
     if (githubToken !== '') {
 
       const githubClient = new GitHub(githubToken)
-      const isMerged = (context.payload.action === 'closed') && (context.payload.pull_request['merged'] === true);
-
-      if (isMerged) {
-
-        const res = await githubClient.issues.get({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: context.payload.pull_request.number
-        });
-
-        const leftParaIndex = res.data.title.indexOf('(');
-        const rightParaIndex = res.data.title.indexOf(')');
-        const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
-        const linkIssueNumber = +linkIssueStr;
-
-        
-        const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: linkIssueNumber
-        });
-        const issueLabel = issueLabelsResponse.data.find(l => l.name === "in progress :octopus:");
-        if (issueLabel !== undefined) {
-          await githubClient.issues.removeLabel({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            issue_number: linkIssueNumber,
-            name: "in progress :octopus:"
-          });
-        }
-
-        const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
-          owner: context.repo.owner,
-          repo: context.repo.repo
-        });
-        
-        const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done 🎉");
-        if (finishLabel === undefined) {
-          await githubClient.issues.createLabel({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            name: "done 🎉",
-            description: "This issue is solved",
-            color: "adff2f"
-          });
-        }
-
-        await githubClient.issues.addLabels({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          issue_number: linkIssueNumber,
-          labels: ["done 🎉"]
-        })
-
-        return;
-      }
-      
-      
 
       if (context.issue.number !== undefined) {
 
@@ -84,6 +26,51 @@ async function run() {
         const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
         const linkIssueNumber = +linkIssueStr;
 
+        const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
+          owner: context.repo.owner,
+          repo: context.repo.repo
+        });
+
+        const isMerged = (context.payload.action === 'closed') && (context.payload.pull_request['merged'] === true);
+
+        if (isMerged) {
+
+          const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: linkIssueNumber
+          });
+          const issueLabel = issueLabelsResponse.data.find(l => l.name === "in progress :octopus:");
+          if (issueLabel !== undefined) {
+            await githubClient.issues.removeLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: linkIssueNumber,
+              name: "in progress :octopus:"
+            });
+          }
+
+          const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done 🎉");
+          if (finishLabel === undefined) {
+            await githubClient.issues.createLabel({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              name: "done 🎉",
+              description: "This issue is solved",
+              color: "adff2f"
+            });
+          }
+
+          await githubClient.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: linkIssueNumber,
+            labels: ["done 🎉"]
+          })
+
+          return;
+        }
+
         if (!isNumber(linkIssueNumber)) {
           await githubClient.issues.createComment({
             issue_number: context.issue.number,
@@ -94,59 +81,44 @@ async function run() {
           return;
         }
 
-        const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
+        const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
+        
+        if (progressLabel === undefined) {
+          await githubClient.issues.createLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: "in progress :octopus:",
+            description: "This issue is currently being handling",
+            color: "a9ffd4"
+          });
+        }
+
+        process.stdout.write(`The linked issue of this pull request is issue#${linkIssueNumber}\n`)
+
+        const listOfCommentsResponse = await githubClient.issues.listComments({
           owner: context.repo.owner,
-          repo: context.repo.repo
+          repo: context.repo.repo,
+          issue_number: linkIssueNumber
         });
 
-        
+        const comment = listOfCommentsResponse.data.find(l => l.body === `💡 This issue is linked to the pull request #${context.issue.number}\n 🔧 The related pull request is opened by @${res.data.user.login}\n\n\n 🐙 This comment is auto-generated by FuzzyOcto\n`);
 
-        //if (!isMerged) {
-         //catch (err) {
-          //if (err.status === 404) {
-            const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
-            if (progressLabel === undefined) {
-              await githubClient.issues.createLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: "in progress :octopus:",
-                description: "This issue is currently being handling",
-                color: "a9ffd4"
-              });
-            }
+        if (comment === undefined) {
+          await githubClient.issues.createComment({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: linkIssueNumber,
+            body: `💡 This issue is linked to the pull request #${context.issue.number}\n 🔧 The related pull request is opened by @${res.data.user.login}\n\n\n 🐙 This comment is auto-generated by FuzzyOcto\n`,
+          });
+        }
 
-            process.stdout.write(`The linked issue of this pull request is issue#${linkIssueNumber}\n`)
-
-            const listOfCommentsResponse = await githubClient.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: linkIssueNumber
-            });
-
-            const comment = listOfCommentsResponse.data.find(l => l.body === `💡 This issue is linked to the pull request #${context.issue.number}\n 🔧 The related pull request is opened by @${res.data.user.login}\n\n\n 🐙 This comment is auto-generated by FuzzyOcto\n`);
-        
-            if (comment === undefined) {
-              await githubClient.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: linkIssueNumber,
-                body: `💡 This issue is linked to the pull request #${context.issue.number}\n 🔧 The related pull request is opened by @${res.data.user.login}\n\n\n 🐙 This comment is auto-generated by FuzzyOcto\n`,
-              });
-            }
-
-            await githubClient.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: linkIssueNumber,
-              labels: ["in progress :octopus:"]
-            })
-        //} else {
-          //} else {
-            
-        //}
-          //}
-        //}
-      } 
+        await githubClient.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: linkIssueNumber,
+          labels: ["in progress :octopus:"]
+        })
+      }
     }
   } catch (error) {
     core.setFailed(error.message)
