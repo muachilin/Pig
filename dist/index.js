@@ -539,7 +539,13 @@ async function run() {
           repo: context.repo.repo
         });
 
-        if (context.event.pull_request.merged) {
+        const isMergedResponse = await githubClient.pulls.checkIfMerged({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          pull_number: context.issue.number
+        });
+        
+        if (isMergedResponse.status === 204) {
 
           const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
             owner: context.repo.owner,
