@@ -543,7 +543,7 @@ async function run() {
           await githubClient.pulls.checkIfMerged({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            pull_number: context.pull.number
+            pull_number: context.issue.number
           });
         } catch (err) {
           if (err.response.status === 404) {
