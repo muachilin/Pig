@@ -41,14 +41,11 @@ async function run() {
           repo: context.repo.repo
         });
 
-        try {
-          await githubClient.pulls.checkIfMerged({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number
-          });
-        } catch (err) {
-          if (err.status === 404) {
+        const isMerged = context.payload.pull_request['merged'];
+        
+        if (!isMerged) {
+         //catch (err) {
+          //if (err.status === 404) {
             const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
             if (progressLabel === undefined) {
               await githubClient.issues.createLabel({
@@ -85,8 +82,8 @@ async function run() {
               issue_number: linkIssueNumber,
               labels: ["in progress :octopus:"]
             })
-          
-          } else {
+        } else {
+          //} else {
             const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -102,14 +99,14 @@ async function run() {
               });
             }
     
-            const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done ❕");
+            const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done 🎉");
             if (finishLabel === undefined) {
               await githubClient.issues.createLabel({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                name: "done ❕",
+                name: "done 🎉",
                 description: "This issue is solved",
-                color: "198c19"
+                color: "adff2f"
               });
             }
     
@@ -117,10 +114,11 @@ async function run() {
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: linkIssueNumber,
-              labels: ["done ❕"]
+              labels: ["done 🎉"]
             })
-          }
         }
+          //}
+        //}
       }
     }
   } catch (error) {
