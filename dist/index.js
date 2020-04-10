@@ -546,7 +546,7 @@ async function run() {
             pull_number: context.pull.number
           });
         } catch (err) {
-          if (error.response.status === 404) {
+          if (err.response.status === 404) {
             const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
             if (progressLabel === undefined) {
               await githubClient.issues.createLabel({
