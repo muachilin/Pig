@@ -539,7 +539,7 @@ async function run() {
           repo: context.repo.repo
         });
 
-        const isMerged = !Github.context.payload.pull_request['merged'];
+        const isMerged = !context.payload.pull_request['merged'];
         
         if (!isMerged) {
          //catch (err) {
