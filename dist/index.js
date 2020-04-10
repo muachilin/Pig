@@ -539,8 +539,9 @@ async function run() {
           repo: context.repo.repo
         });
 
-        const isMerged = context.payload.pull_request['closed'];
-        
+        const isMerged = context.payload.action === 'closed' || context.payload.pull_request['merged'];
+        console.log(`isMerged:${isMerged}\n`)
+
         if (!isMerged) {
          //catch (err) {
           //if (err.status === 404) {

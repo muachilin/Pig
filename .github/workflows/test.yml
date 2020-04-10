@@ -7,15 +7,13 @@ on:
       - 'releases/*'
 
 jobs:
-  # unit tests
-  units:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - run: npm ci
     - run: npm run package
 
-  # test action works running from the graph  
   test:
     runs-on: ubuntu-latest
     steps:
