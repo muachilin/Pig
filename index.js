@@ -60,7 +60,7 @@ async function run() {
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: "❗ Please include the number of issue in the title of the pull request!\n 💠 For example: My pull request title (#123)\n"
+            body: "❗ Please include the number of corresponding issue in the pull request title!\n 💠 For example: Pull request title (#123)\n"
           })
           return;
         }
