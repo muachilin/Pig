@@ -13,9 +13,11 @@
 </p>
 
 
-A tiny Github Action built with JavaScript for managing labels and comments in issues!
+A tiny Github Action built with JavaScript for managing labels and comments in issues :dart:
 
-Stay at home and play with Github :octocat:
+Let FuzzyOcto help you build the bridge between issues and pull requests 🔥
+
+Stay home and play with Github :octocat:
 
 
 ## 🏷️ Labeling
