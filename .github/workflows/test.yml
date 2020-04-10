@@ -23,4 +23,3 @@ jobs:
     - uses: ./
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        commit-comment: "Test for commit comment!"
