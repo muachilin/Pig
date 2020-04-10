@@ -1,7 +1,11 @@
 # Ignore built ts files
-__tests__/runner/*
-lib/**/*
-
+lib/
+src/
+__tests__/
+.eslint*
+.prettier*
+tsconfig.json
+jest.config.js
 ### macOS ###
 # General
 .DS_Store

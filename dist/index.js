@@ -3543,7 +3543,7 @@ function run() {
                         owner: github_1.context.repo.owner,
                         repo: github_1.context.repo.repo,
                         name: "in progress :octopus:",
-                        description: "This issue is start being handling!",
+                        description: "This issue is currently being handling",
                         color: "a9ffd4"
                     });
                 }
