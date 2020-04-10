@@ -1,11 +1,7 @@
 name: "FuzzyOcto-Test"
 on:
   pull_request:
-  push:
-    branches:
-      - master
-      - 'releases/*'
-
+    types: [assigned, opened, synchronize, reopened, edited, closed]
 jobs:
   build:
     runs-on: ubuntu-latest
