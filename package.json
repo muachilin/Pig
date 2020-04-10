@@ -1,7 +1,7 @@
 {
   "name": "fuzzyocto-action",
   "version": "1.0.0",
-  "description": "JavaScript Action",
+  "description": "A tiny Github Action built with JavaScript for bridging issues and pull requests 🐙",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -10,10 +10,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
+    "url": "git+https://github.com/muachilin/FuzzyOcto.git"
   },
   "keywords": [
-    "GitHub",
     "Actions",
     "JavaScript"
   ],
