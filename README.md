@@ -34,7 +34,9 @@ When you commit to a branch and open a corresonding pull request, FuzzyOcto will
 ```bash
 My pull request title (#123)
 ```
+
 ## ✂️  Delabeling
+
 After you merge the pull request, FuzzyOcto will automatically remove the original `in progress` label and add the `done` label to the linked issue. Therefore, user can easily see which issues are already solved. 
 
 <br></br>
