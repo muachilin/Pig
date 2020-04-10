@@ -508,9 +508,67 @@ async function run() {
     
     const githubToken = core.getInput('github-token')
     if (githubToken !== '') {
-      
+
       const githubClient = new GitHub(githubToken)
+      const isMerged = (context.payload.action === 'closed') && (context.payload.pull_request['merged'] === true);
+
+      if (isMerged) {
+
+        const res = await githubClient.issues.get({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: context.payload.pull_request.number
+        });
+
+        const leftParaIndex = res.data.title.indexOf('(');
+        const rightParaIndex = res.data.title.indexOf(')');
+        const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
+        const linkIssueNumber = +linkIssueStr;
+
+        
+        const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: linkIssueNumber
+        });
+        const issueLabel = issueLabelsResponse.data.find(l => l.name === "in progress :octopus:");
+        if (issueLabel !== undefined) {
+          await githubClient.issues.removeLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: linkIssueNumber,
+            name: "in progress :octopus:"
+          });
+        }
+
+        const labelsInRepoResponse = await githubClient.issues.listLabelsForRepo({
+          owner: context.repo.owner,
+          repo: context.repo.repo
+        });
+        
+        const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done 🎉");
+        if (finishLabel === undefined) {
+          await githubClient.issues.createLabel({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            name: "done 🎉",
+            description: "This issue is solved",
+            color: "adff2f"
+          });
+        }
+
+        await githubClient.issues.addLabels({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: linkIssueNumber,
+          labels: ["done 🎉"]
+        })
+
+        return;
+      }
       
+      
+
       if (context.issue.number !== undefined) {
 
         const res = await githubClient.issues.get({
@@ -539,10 +597,9 @@ async function run() {
           repo: context.repo.repo
         });
 
-        const isMerged = (context.payload.action === 'closed') && (context.payload.pull_request['merged'] === true);
-        console.log(`isMerged:${isMerged}\n`)
+        
 
-        if (!isMerged) {
+        //if (!isMerged) {
          //catch (err) {
           //if (err.status === 404) {
             const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
@@ -581,44 +638,13 @@ async function run() {
               issue_number: linkIssueNumber,
               labels: ["in progress :octopus:"]
             })
-        } else {
+        //} else {
           //} else {
-            const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: linkIssueNumber
-            });
-            const issueLabel = issueLabelsResponse.data.find(l => l.name === "in progress :octopus:");
-            if (issueLabel !== undefined) {
-              await githubClient.issues.removeLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: linkIssueNumber,
-                name: "in progress :octopus:"
-              });
-            }
-    
-            const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done 🎉");
-            if (finishLabel === undefined) {
-              await githubClient.issues.createLabel({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                name: "done 🎉",
-                description: "This issue is solved",
-                color: "adff2f"
-              });
-            }
-    
-            await githubClient.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: linkIssueNumber,
-              labels: ["done 🎉"]
-            })
-        }
+            
+        //}
           //}
         //}
-      }
+      } 
     }
   } catch (error) {
     core.setFailed(error.message)
