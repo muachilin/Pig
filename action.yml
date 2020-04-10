@@ -1,9 +1,9 @@
 name: 'fuzzyocto-action'
-description: 'label management for issues'
+description: 'The bridge between issues and pull requests'
 author: 'muachilin'
 inputs:
   github-token:
-    description: 'Github token'
+    description: 'Github Token'
     required: true
 runs:
   using: 'node12'
