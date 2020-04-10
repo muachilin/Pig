@@ -35,6 +35,17 @@ When you commit to a branch and open a corresonding pull request, FuzzyOcto will
 My pull request title (#123)
 ```
 
+## ✂️  Delabeling
+
+After you merge the pull request, FuzzyOcto will automatically remove the original `in progress` label and add the `done` label to the linked issue. Therefore, user can easily see which issues are already solved. 
+
+<br></br>
+<p align="center">
+ <img alt="" src="examples/remove_label.png" width="500" />
+</p>
+<br></br>
+
+
 ## 📝 Mentioning
 
 When you commit to a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request. Besides, FuzzyOcto will tag the person who open the pull request on the linked issue. Therefore, user can see who and which PR is handling this issue very easily.
