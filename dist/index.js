@@ -539,15 +539,14 @@ async function run() {
           repo: context.repo.repo
         });
 
-        let isMergeResponse;
         try {
-          isMergeResponse = await githubClient.pulls.checkIfMerged({
+          await githubClient.pulls.checkIfMerged({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            pull_number: context.issue.number
+            pull_number: context.pull.number
           });
         } catch (err) {
-          if (isMergeResponse.status === 404) {
+          if (error.response.status === 404) {
             const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
             if (progressLabel === undefined) {
               await githubClient.issues.createLabel({
