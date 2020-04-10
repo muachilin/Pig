@@ -44,12 +44,7 @@ async function run() {
       }
       // If it is a pull request
       if (context.issue.number !== undefined) {
-        await githubClient.issues.createComment({
-          issue_number: context.issue.number,
-          owner: context.repo.owner,
-          repo: context.repo.repo,
-          body: commitMessage
-        })
+
         const res = await githubClient.issues.get({
           owner: context.repo.owner,
           repo: context.repo.repo,
@@ -60,13 +55,12 @@ async function run() {
         const linkIssueStr = res.data.title.substring(leftParaIndex + 2, rightParaIndex);
         process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`)
         const linkIssueNumber = +linkIssueStr;
-
         if (!isNumber(linkIssueNumber)) {
           await githubClient.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: "Please include the number of issue in the title of the pull request!\n"
+            body: "❗ Please include the number of issue in the title of the pull request!\n 💠 For example: My pull request title (#123)\n"
           })
           return;
         }
