@@ -555,7 +555,7 @@ async function run() {
               repo: context.repo.repo,
               name: "done 🎉",
               description: "This issue is solved",
-              color: "adff2f"
+              color: "ffbe42"
             });
           }
 
@@ -580,7 +580,7 @@ async function run() {
         }
 
         const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
-        
+
         if (progressLabel === undefined) {
           await githubClient.issues.createLabel({
             owner: context.repo.owner,
