@@ -499,6 +499,8 @@ module.exports = require("os");
 const core = __webpack_require__(470);
 const { context, GitHub } = __webpack_require__(469);
 
+function isNumber(n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) }
+
 async function run() {
   try {
     
@@ -557,6 +559,15 @@ async function run() {
         process.stdout.write(`The linked issue of this pull request is #${linkIssueStr}\n`)
         const linkIssueNumber = +linkIssueStr;
 
+        if (!isNumber(linkIssueNumber)) {
+          await githubClient.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: "Please include the number of issue in the title of the pull request!\n"
+          })
+          return;
+        }
         const listOfCommentsResponse = await githubClient.issues.listComments({
           owner: context.repo.owner,
           repo: context.repo.repo,
