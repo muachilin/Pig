@@ -1,11 +1,7 @@
 name: "FuzzyOcto-Test"
 on:
   pull_request:
-  push:
-    branches:
-      - master
-      - 'releases/*'
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
