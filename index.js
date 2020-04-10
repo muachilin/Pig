@@ -41,7 +41,7 @@ async function run() {
           repo: context.repo.repo
         });
 
-        const isMerged = !context.payload.pull_request['merged'];
+        const isMerged = context.payload.pull_request['merged'];
         
         if (!isMerged) {
          //catch (err) {
@@ -99,14 +99,14 @@ async function run() {
               });
             }
     
-            const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done ❕");
+            const finishLabel = labelsInRepoResponse.data.find(l => l.name === "done 🎉");
             if (finishLabel === undefined) {
               await githubClient.issues.createLabel({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                name: "done ❕",
+                name: "done 🎉",
                 description: "This issue is solved",
-                color: "198c19"
+                color: "adff2f"
               });
             }
     
@@ -114,7 +114,7 @@ async function run() {
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: linkIssueNumber,
-              labels: ["done ❕"]
+              labels: ["done 🎉"]
             })
         }
           //}
