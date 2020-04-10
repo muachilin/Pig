@@ -1,114 +1,41 @@
+<h1 align="center">
+  FuzzyOcto
+</h1>
 
 <p align="center">
-  <a href="https://github.com/actions/javascript-action/actions"><img alt="javscript-action status" src="https://github.com/actions/javascript-action/workflows/units-test/badge.svg"></a>
+  <a href="">
+    <img alt="" src="https://images.emojiterra.com/google/android-nougat/512px/1f419.png" width="200" />
+  </a>
 </p>
 
-# Create a JavaScript Action
+<p align="center">
+  <a href=""><img alt="FuzzyOcto status" src="https://github.com/muachilin/FuzzyOcto/workflows/FuzzyOcto-Test/badge.svg"></a>
+</p>
 
-Use this template to bootstrap the creation of a JavaScript action.:rocket:
 
-This template includes tests, linting, a validation workflow, publishing, and versioning guidance.  
+A tiny Github Action built with TypeScript for managing labels and comments in issues!
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+Stay at home and play with Github :octocat:
 
-## Create an action from this template
 
-Click the `Use this Template` and provide the new repo details for your action
+## Labeling
 
-## Code in Master
-
-Install the dependencies  
-```bash
-$ npm install
-```
-
-Run the tests :heavy_check_mark:  
-```bash
-$ npm test
-
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
-...
-```
-
-## Change action.yml
-
-The action.yml contains defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-const core = require('@actions/core');
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-```
-
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
-
-## Package for distribution
-
-GitHub Actions will run the entry point from the action.yml. Packaging assembles the code into one file that can be checked in to Git, enabling fast and reliable execution and preventing the need to check in node_modules.
-
-Actions are run from GitHub repos.  Packaging the action will create a packaged action in the dist folder.
-
-Run package
+When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically add a label of `in progress` to the linked issue of this pull request!
+<br></br>
+<p align="center">
+ <img alt="" src="examples/add_label.png" width="500" />
+</p>
+<br></br>
+Remember to include the number of linked issue in the title of the pull request in the parentheses:
 
 ```bash
-npm run package
+My pull request title (#123)
 ```
 
-Since the packaged index.js is run from the dist folder.
+## Mentioning
 
-```bash
-git add dist
-```
+When you commit a branch and open a corresonding pull request, FuzzyOcto will automatically comment on the linked issue of this pull request. Besides, FuzzyOcto will tag the person who open the pull request related to this issue. Therefore, user can see who and which PR is handling this issue very easily!
 
-## Create a release branch
-
-Users shouldn't consume the action from master since that would be latest code and actions can break compatibility between major versions.
-
-Checkin to the v1 release branch
-
-```bash
-$ git checkout -b v1
-$ git commit -a -m "v1 release"
-```
-
-```bash
-$ git push origin v1
-```
-
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Usage
-
-You can now consume the action by referencing the v1 branch
-
-```yaml
-uses: actions/javascript-action@v1
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/javascript-action/actions) for runs of this action! :rocket:
+<p align="center">
+ <img alt="" src="examples/issue_comment.png" width="700" />
+</p>
