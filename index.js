@@ -41,14 +41,11 @@ async function run() {
           repo: context.repo.repo
         });
 
-        try {
-          await githubClient.pulls.checkIfMerged({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number
-          });
-        } catch (err) {
-          if (err.status === 404) {
+        const isMerged = !Github.context.payload.pull_request['merged'];
+        
+        if (!isMerged) {
+         //catch (err) {
+          //if (err.status === 404) {
             const progressLabel = labelsInRepoResponse.data.find(l => l.name === "in progress :octopus:");
             if (progressLabel === undefined) {
               await githubClient.issues.createLabel({
@@ -85,8 +82,8 @@ async function run() {
               issue_number: linkIssueNumber,
               labels: ["in progress :octopus:"]
             })
-          
-          } else {
+        } else {
+          //} else {
             const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -119,8 +116,9 @@ async function run() {
               issue_number: linkIssueNumber,
               labels: ["done ❕"]
             })
-          }
         }
+          //}
+        //}
       }
     }
   } catch (error) {
