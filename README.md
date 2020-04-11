@@ -74,7 +74,6 @@ Remember to include the number of linked issue in the title of the pull request 
 ```yaml
 My pull request title (#123)
 ```
-<br></br>
 
 If you still forget to include the number of linked issue in the pull request title, don't worry. Pig will remind you.
 <br></br>
