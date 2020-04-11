@@ -12,7 +12,7 @@ inputs:
   in-progress-label-color:
     description: 'The color of the label indicating that the issue is in progress.'
     required: false
-    default: "ffc163"
+    default: "ff6817"
   done-label-word:
     description: 'The text of the label indicating that the issue is solved.'
     required: false

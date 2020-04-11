@@ -29,7 +29,7 @@ There are five kinds of input for Pig.
 | ----- | --------- | ------- | ----------- |
 | github-token | Yes | x | Simply use  ${{ secrets.GITHUB_TOKEN }}. You don't need to set the token yourself.|
 | in-progress-label-word | No | "in progress ⚡" | The text of the label indicating that the issue is in progress.|
-| in-progress-label-color | No | ![#ffc163](https://placehold.it/15/ffc163/000000?text=+) `#ffc163` | The color of the label indicating that the issue is in progress. |
+| in-progress-label-color | No | ![#ff6817](https://placehold.it/15/ff6817/000000?text=+) `#ff6817` | The color of the label indicating that the issue is in progress. |
 | done-label-word | No | "done 🎉" | The text of the label indicating that the issue is solved. |
 | done-label-color | No | ![#c0ff33](https://placehold.it/15/c0ff33/000000?text=+) `#c0ff33` | The color of the label indicating that the issue is solved. |
 
