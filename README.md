@@ -67,8 +67,9 @@ When you commit to a branch and open a corresonding pull request, Pig will autom
 <p align="center">
  <img alt="" src="examples/add_label.png" width="500" />
 </p>
+<br></br>
 
-👉 Remember to include the number of linked issue in the title of the pull request in the parentheses
+Remember to include the number of linked issue in the title of the pull request in the parentheses
 
 ```yaml
 My pull request title (#123)
@@ -79,7 +80,7 @@ If you still forget to include the number of linked issue in the pull request ti
 <p align="center">
  <img alt="" src="examples/title_remind.png" width="700" />
 </p>
-
+<br></br>
 
 ## ✂️ Delabeling
 
@@ -88,11 +89,12 @@ After you merge the pull request, Pig will automatically remove the original `in
 <p align="center">
  <img alt="" src="examples/remove_label.png" width="500" />
 </p>
+<br></br>
 
 ## 📝 Mentioning
 
 When you commit to a branch and open a corresonding pull request, Pig will automatically comment on the linked issue of this pull request. Besides, Pig will tag the person who open the pull request on the linked issue. Therefore, user can see who and which PR is handling this issue very easily.
-
+<br></br>
 <p align="center">
  <img alt="" src="examples/issue_comment.png" width="700" />
 </p>
