@@ -2,6 +2,9 @@ name: "Pig-Test"
 on:
   pull_request:
     types: [assigned, opened, synchronize, reopened, edited, closed]
+  push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
