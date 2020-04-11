@@ -1,7 +1,7 @@
 {
-  "name": "fuzzyocto-action",
+  "name": "pig-action",
   "version": "1.0.0",
-  "description": "A tiny Github Action built with JavaScript for bridging issues and pull requests 🐙",
+  "description": "Make Pull requests and Issues Glue together.",
   "main": "index.js",
   "scripts": {
     "lint": "eslint index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/muachilin/FuzzyOcto.git"
+    "url": "git+https://github.com/muachilin/Pig.git"
   },
   "keywords": [
     "Actions",
