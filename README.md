@@ -13,9 +13,9 @@
 </p>
 
 
-A tiny Github Action built with JavaScript for managing between pull request and issues :dart:
+A tiny Github Action built with JavaScript for managing pull requests and issues :dart:
 
-Let Pig make Pull requests and Issues Glue together 🥂
+Let PIG make Pull requests and Issues Glue together 🥂
 
 Stay home and play with Github :octocat:
 
