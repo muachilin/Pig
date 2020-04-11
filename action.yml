@@ -8,11 +8,11 @@ inputs:
   in-progress-label-word:
     description: 'The text of the label indicating that the issue is in progress.'
     required: false
-    default: "in progress ⚡"
+    default: "in progress 🌱"
   in-progress-label-color:
     description: 'The color of the label indicating that the issue is in progress.'
     required: false
-    default: "ff6817"
+    default: "ffc163"
   done-label-word:
     description: 'The text of the label indicating that the issue is solved.'
     required: false

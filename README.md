@@ -3,8 +3,8 @@
 </h1>
 
 <p align="center">
-  <a href="">
-    <img alt="" src="https://i.pinimg.com/originals/bb/ab/d0/bbabd02172fe466072c0e593d67741f5.png" width="200" />
+  <a href="https://github.com/marketplace/actions/pig-action">
+    <img alt="" src="https://i.pinimg.com/originals/bb/ab/d0/bbabd02172fe466072c0e593d67741f5.png" width="250" />
   </a>
 </p>
 
@@ -15,7 +15,7 @@
 
 A tiny Github Action built with JavaScript for managing between pull request and issues :dart:
 
-Let Pig make Pull requests and Issues Glue together 🔥
+Let Pig make Pull requests and Issues Glue together 🥂
 
 Stay home and play with Github :octocat:
 
@@ -23,23 +23,23 @@ Stay home and play with Github :octocat:
 
 ### Inputs
 
-There are five kinds of input for Pig.
+There are five inputs for Pig.
 
 | Input | Required | Default | Description |
 | ----- | --------- | ------- | ----------- |
 | github-token | Yes | x | Simply use  ${{ secrets.GITHUB_TOKEN }}. You don't need to set the token yourself.|
-| in-progress-label-word | No | "in progress ⚡" | The text of the label indicating that the issue is in progress.|
-| in-progress-label-color | No | ![#ff6817](https://placehold.it/15/ff6817/000000?text=+) `#ff6817` | The color of the label indicating that the issue is in progress. |
+| in-progress-label-word | No | "in progress 🌱" | The text of the label indicating that the issue is in progress.|
+| in-progress-label-color | No | ![#ffc163](https://placehold.it/15/ffc163/000000?text=+) `#ffc163` | The color of the label indicating that the issue is in progress. |
 | done-label-word | No | "done 🎉" | The text of the label indicating that the issue is solved. |
 | done-label-color | No | ![#c0ff33](https://placehold.it/15/c0ff33/000000?text=+) `#c0ff33` | The color of the label indicating that the issue is solved. |
 
 ### Triggering Workflow
 
-Since by default, a workflow only runs when a `pull_request`'s activity type is `opened`, `synchronize`, or `reopened`, be sure to include `closed` in the types of `pull_request` to trigger the action when merging the pull requests. See ["pull_request"](https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request) in Github Actions Reference for other activity types of pull request event.
+Since by default, a workflow only runs when a `pull_request`'s activity type is `opened`, `synchronize`, or `reopened`, be sure to include `closed` in the types of `pull_request` to trigger the action when merging the pull requests. See [pull_request](https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request) in Github Actions Reference for other activity types of pull request event.
 
 
 ### Example of Usage
-You have to include your workflows in the `.github/workflows` directory in the root of your repository. The following is the example of using pig-action in `.github/workflows/my-workflow.yml`. If you want to customize your color for done label, you need to use hexadecimal color code in lower case without the leading `#` mark.
+To configure your automated software development process in Github, you have to include workflows in the `.github/workflows` directory in the root of your repository. The following is the example of using pig-action in `.github/workflows/my-workflow.yml`. If you want to customize the color of done label, you need to use hexadecimal color code in lower case without the leading `#` mark.
 
 ```yaml
 name: 'My workflow'
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: pig-action
-        uses: muachilin/Pig@0.0.7
+        uses: muachilin/Pig@0.0.8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           in-progress-label-word: "handling"
@@ -71,9 +71,10 @@ When you commit to a branch and open a corresonding pull request, Pig will autom
 
 👉 Remember to include the number of linked issue in the title of the pull request in the parentheses
 
-```bash
+```yaml
 My pull request title (#123)
 ```
+
 
 ## ✂️ Delabeling
 
