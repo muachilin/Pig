@@ -67,7 +67,6 @@ When you commit to a branch and open a corresonding pull request, Pig will autom
 <p align="center">
  <img alt="" src="examples/add_label.png" width="500" />
 </p>
-<br></br>
 
 👉 Remember to include the number of linked issue in the title of the pull request in the parentheses
 
@@ -75,17 +74,20 @@ When you commit to a branch and open a corresonding pull request, Pig will autom
 My pull request title (#123)
 ```
 
+If you still forget to include the number of linked issue in the pull request title, don't worry. Pig will remind you.
+<br></br>
+<p align="center">
+ <img alt="" src="examples/title_remind.png" width="700" />
+</p>
+
 
 ## ✂️ Delabeling
 
 After you merge the pull request, Pig will automatically remove the original `in progress` label and add the `done` label to the linked issue. Therefore, user can easily see which issues are already solved. 
-
 <br></br>
 <p align="center">
  <img alt="" src="examples/remove_label.png" width="500" />
 </p>
-<br></br>
-
 
 ## 📝 Mentioning
 
