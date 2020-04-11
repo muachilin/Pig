@@ -527,7 +527,7 @@ async function run() {
           repo: context.repo.repo
         });
         const isMerged = (context.payload.action === 'closed') && (context.payload.pull_request['merged'] === true);
-        if (isMerged) {
+        if (isMerged && isNumber(linkIssueNumber)) {
           const issueLabelsResponse = await githubClient.issues.listLabelsOnIssue({
             owner: context.repo.owner,
             repo: context.repo.repo,
